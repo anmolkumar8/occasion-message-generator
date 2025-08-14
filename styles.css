@@ -321,8 +321,20 @@ section {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: #fff !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+    background: none !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+/* Force specific section titles to be white */
+#generator .section-title,
+#examples .section-title,
+#about .section-title {
+    color: #fff !important;
+    background: none !important;
+    -webkit-text-fill-color: #fff !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
 }
 
 .section-subtitle {
@@ -478,33 +490,53 @@ select.form-input {
     padding-right: 3rem;
 }
 
-.form-input option {
-    background: #2d3748 !important;
-    color: #ffffff !important;
-    padding: 0.5rem 1rem !important;
-    border: none !important;
-    font-weight: 500 !important;
-    font-family: 'Poppins', sans-serif !important;
-}
-
-.form-input option:hover,
-.form-input option:focus,
-.form-input option:checked {
-    background: #4a5568 !important;
-    color: #feca57 !important;
+/* Custom Dropdown Styling - Force visibility */
+select.form-input {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    border: 2px solid rgba(255, 255, 255, 0.4) !important;
     font-weight: 600 !important;
 }
 
-/* Custom select styling for better visibility */
-.form-input select:focus {
-    box-shadow: 0 0 0 3px rgba(254, 202, 87, 0.3) !important;
+/* Dropdown options - Maximum visibility */
+select.form-input option {
+    background-color: #1a202c !important;
+    color: #ffffff !important;
+    padding: 12px 16px !important;
+    border: none !important;
+    font-weight: 500 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
 }
 
-/* Ensure dropdown arrow is visible */
-.form-input select {
-    background-color: rgba(255, 255, 255, 0.15) !important;
-    color: #fff !important;
-    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+/* Selected and hover states */
+select.form-input option:checked,
+select.form-input option:selected {
+    background-color: #feca57 !important;
+    color: #1a202c !important;
+    font-weight: 600 !important;
+}
+
+select.form-input option:hover {
+    background-color: #2d3748 !important;
+    color: #feca57 !important;
+}
+
+/* Focus state for select */
+select.form-input:focus {
+    box-shadow: 0 0 0 3px rgba(254, 202, 87, 0.4) !important;
+    border-color: #feca57 !important;
+}
+
+/* Enhanced dropdown arrow */
+select.form-input {
+    appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 16px !important;
+    padding-right: 40px !important;
 }
 
 .btn-generate {
@@ -666,17 +698,57 @@ select.form-input {
     font-weight: 600;
 }
 
-/* Button Active States */
+/* Enhanced Button States */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
 .btn:active {
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.98);
+    transition: all 0.1s ease;
 }
 
 .btn-primary:active {
     background: linear-gradient(45deg, #e55a5a, #e6b84a);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
 }
 
 .btn-outline:active {
     background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Button click ripple effect */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+    z-index: 0;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn span,
+.btn i {
+    position: relative;
+    z-index: 1;
 }
 
 /* Loading Animation */

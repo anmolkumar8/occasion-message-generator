@@ -497,49 +497,94 @@ select.form-input {
 
 /* Custom Option Buttons - Always Visible */
 .option-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+    gap: 0.8rem !important;
+    margin-bottom: 1rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .option-btn {
-    padding: 0.8rem 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    font-size: 0.9rem;
-    font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    user-select: none;
+    display: block !important;
+    padding: 1rem 1.2rem !important;
+    border: 2px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-align: center !important;
+    user-select: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
 .option-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2) !important;
 }
 
 .option-btn.selected {
-    background: linear-gradient(45deg, #ff6b6b, #feca57);
-    border-color: #feca57;
-    color: #fff;
-    font-weight: 600;
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    background: linear-gradient(45deg, #ff6b6b, #feca57) !important;
+    border-color: #feca57 !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 6px 25px rgba(255, 107, 107, 0.4) !important;
+    transform: translateY(-2px) !important;
 }
 
 /* Hide original select elements */
 .form-input.hidden-select {
-    display: none;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
 }
 
 /* Tone options - smaller grid for better layout */
 .tone-options {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Enhanced section title visibility */
+.generator .section-title {
+    color: #ffffff !important;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8) !important;
+    background: none !important;
+    background-image: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: #ffffff !important;
+    background-clip: initial !important;
+    font-weight: 700 !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 1rem !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.generator .section-title::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    z-index: -1 !important;
+    border-radius: 10px !important;
+    backdrop-filter: blur(5px) !important;
 }
 
 .btn-generate {
@@ -860,6 +905,37 @@ select.form-input {
         transform: translateY(-5px) translateX(-50%);
     }
 }
+
+/* Debug and Visibility Overrides */
+.option-group,
+.option-group *,
+.option-btn {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+    z-index: 1 !important;
+}
+
+.form-group .option-group {
+    display: grid !important;
+}
+
+.option-btn {
+    width: auto !important;
+    height: auto !important;
+    min-height: 45px !important;
+    line-height: 1.4 !important;
+}
+
+/* Debugging - temporary red borders for visibility testing */
+/*.option-group {
+    border: 2px solid red !important;
+}
+
+.option-btn {
+    border: 2px solid green !important;
+}*/
 
 /* Responsive Design */
 @media (max-width: 768px) {

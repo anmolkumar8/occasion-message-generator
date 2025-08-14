@@ -195,18 +195,25 @@ function initMessageGenerator() {
 
 // Option Button Functionality
 function initOptionButtons() {
+    console.log('Initializing option buttons...');
+    
     // Handle relationship options
     const relationshipOptions = document.querySelectorAll('#relationshipOptions .option-btn');
     const relationshipSelect = document.getElementById('relationship');
     
+    console.log('Found', relationshipOptions.length, 'relationship options');
+    
     relationshipOptions.forEach(btn => {
         btn.addEventListener('click', function() {
+            console.log('Relationship option clicked:', this.dataset.value);
             // Remove selected class from all buttons in this group
             relationshipOptions.forEach(b => b.classList.remove('selected'));
             // Add selected class to clicked button
             this.classList.add('selected');
             // Update hidden select value
-            relationshipSelect.value = this.dataset.value;
+            if (relationshipSelect) {
+                relationshipSelect.value = this.dataset.value;
+            }
         });
     });
     
@@ -214,16 +221,29 @@ function initOptionButtons() {
     const toneOptions = document.querySelectorAll('#toneOptions .option-btn');
     const toneSelect = document.getElementById('tone');
     
+    console.log('Found', toneOptions.length, 'tone options');
+    
     toneOptions.forEach(btn => {
         btn.addEventListener('click', function() {
+            console.log('Tone option clicked:', this.dataset.value);
             // Remove selected class from all buttons in this group
             toneOptions.forEach(b => b.classList.remove('selected'));
             // Add selected class to clicked button
             this.classList.add('selected');
             // Update hidden select value
-            toneSelect.value = this.dataset.value;
+            if (toneSelect) {
+                toneSelect.value = this.dataset.value;
+            }
         });
     });
+    
+    // Initialize default tone selection
+    const defaultToneBtn = document.querySelector('#toneOptions .option-btn[data-value="warm"]');
+    if (defaultToneBtn && toneSelect) {
+        toneSelect.value = 'warm';
+    }
+    
+    console.log('Option buttons initialized successfully');
 }
 
 // Notification System

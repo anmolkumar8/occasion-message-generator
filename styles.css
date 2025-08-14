@@ -321,10 +321,8 @@ section {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .section-subtitle {
@@ -444,25 +442,69 @@ section {
 .form-input {
     width: 100%;
     padding: 1rem 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.15);
     color: #fff;
     font-size: 1rem;
     transition: all 0.3s ease;
     backdrop-filter: blur(20px);
     font-family: 'Poppins', sans-serif;
+    font-weight: 500;
 }
 
 .form-input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
 }
 
 .form-input:focus {
     outline: none;
     border-color: #feca57;
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 20px rgba(254, 202, 87, 0.3);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 20px rgba(254, 202, 87, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Select dropdown styling */
+.form-input select,
+select.form-input {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 3rem;
+}
+
+.form-input option {
+    background: #2d3748 !important;
+    color: #ffffff !important;
+    padding: 0.5rem 1rem !important;
+    border: none !important;
+    font-weight: 500 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.form-input option:hover,
+.form-input option:focus,
+.form-input option:checked {
+    background: #4a5568 !important;
+    color: #feca57 !important;
+    font-weight: 600 !important;
+}
+
+/* Custom select styling for better visibility */
+.form-input select:focus {
+    box-shadow: 0 0 0 3px rgba(254, 202, 87, 0.3) !important;
+}
+
+/* Ensure dropdown arrow is visible */
+.form-input select {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
 }
 
 .btn-generate {
@@ -476,9 +518,19 @@ section {
     gap: 0.5rem;
 }
 
+.btn-generate {
+    position: relative;
+    overflow: hidden;
+}
+
 .btn-generate:hover {
     transform: translateY(-3px);
     box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+}
+
+.btn-generate:active {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
 }
 
 .message-display {
@@ -531,6 +583,16 @@ section {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.message-actions .btn:hover {
+    transform: translateY(-2px);
+}
+
+.message-actions .btn:active {
+    transform: translateY(0);
 }
 
 /* Examples Section */
@@ -602,6 +664,19 @@ section {
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
+}
+
+/* Button Active States */
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary:active {
+    background: linear-gradient(45deg, #e55a5a, #e6b84a);
+}
+
+.btn-outline:active {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Loading Animation */

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Experience Hub</title>
+    <title>Occasion Message Generator - Create Perfect Messages</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -16,13 +16,13 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <span class="logo-text">DEH</span>
+                <span class="logo-text">OMG</span>
             </div>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#generator" class="nav-link">Generator</a></li>
+                <li><a href="#examples" class="nav-link">Examples</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -37,14 +37,14 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    <span class="title-line">Digital</span>
-                    <span class="title-line">Experience</span>
-                    <span class="title-line highlight">Hub</span>
+                    <span class="title-line">Occasion</span>
+                    <span class="title-line">Message</span>
+                    <span class="title-line highlight">Generator</span>
                 </h1>
-                <p class="hero-subtitle">Creating immersive digital experiences that captivate and inspire</p>
+                <p class="hero-subtitle">Create heartfelt, personalized messages for any occasion with the power of AI</p>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary">Explore Work</button>
-                    <button class="btn btn-outline">Get In Touch</button>
+                    <button class="btn btn-primary" onclick="scrollToGenerator()">Generate Message</button>
+                    <button class="btn btn-outline" onclick="scrollToExamples()">View Examples</button>
                 </div>
             </div>
             <div class="hero-visual">
@@ -62,138 +62,246 @@
         </div>
     </section>
 
+    <!-- Message Generator Section -->
+    <section id="generator" class="generator">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Create Your Perfect Message</h2>
+                <p class="section-subtitle">Just describe what you need, and let AI craft the perfect message</p>
+            </div>
+            
+            <div class="generator-container">
+                <div class="input-section">
+                    <div class="form-group">
+                        <label for="occasion">Occasion Type</label>
+                        <select id="occasion" class="form-input">
+                            <option value="">Select occasion...</option>
+                            <option value="birthday">Birthday</option>
+                            <option value="anniversary">Anniversary</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="graduation">Graduation</option>
+                            <option value="promotion">Job Promotion</option>
+                            <option value="newjob">New Job</option>
+                            <option value="retirement">Retirement</option>
+                            <option value="baby">New Baby</option>
+                            <option value="valentines">Valentine's Day</option>
+                            <option value="mothers">Mother's Day</option>
+                            <option value="fathers">Father's Day</option>
+                            <option value="christmas">Christmas</option>
+                            <option value="newyear">New Year</option>
+                            <option value="condolence">Condolence</option>
+                            <option value="getsoon">Get Well Soon</option>
+                            <option value="congratulations">General Congratulations</option>
+                            <option value="thankyou">Thank You</option>
+                            <option value="apology">Apology</option>
+                            <option value="custom">Custom Occasion</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="customOccasionGroup" style="display: none;">
+                        <label for="customOccasion">Custom Occasion</label>
+                        <input type="text" id="customOccasion" class="form-input" placeholder="Describe your custom occasion...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipientName">Recipient's Name</label>
+                        <input type="text" id="recipientName" class="form-input" placeholder="Who is this message for?">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="relationship">Your Relationship</label>
+                        <select id="relationship" class="form-input">
+                            <option value="">Select relationship...</option>
+                            <option value="friend">Friend</option>
+                            <option value="family">Family Member</option>
+                            <option value="colleague">Colleague</option>
+                            <option value="boss">Boss</option>
+                            <option value="employee">Employee</option>
+                            <option value="romantic">Romantic Partner</option>
+                            <option value="parent">Parent</option>
+                            <option value="child">Child</option>
+                            <option value="sibling">Sibling</option>
+                            <option value="grandparent">Grandparent</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="student">Student</option>
+                            <option value="neighbor">Neighbor</option>
+                            <option value="acquaintance">Acquaintance</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tone">Message Tone</label>
+                        <select id="tone" class="form-input">
+                            <option value="warm">Warm & Friendly</option>
+                            <option value="formal">Formal & Professional</option>
+                            <option value="funny">Funny & Humorous</option>
+                            <option value="heartfelt">Heartfelt & Emotional</option>
+                            <option value="casual">Casual & Relaxed</option>
+                            <option value="inspirational">Inspirational & Motivating</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalDetails">Additional Details (Optional)</label>
+                        <textarea id="additionalDetails" class="form-input" rows="3" placeholder="Any specific details, memories, or requirements for the message..."></textarea>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-generate" onclick="generateMessage()">
+                        <i class="fas fa-magic"></i>
+                        Generate Message
+                    </button>
+                </div>
+                
+                <div class="output-section">
+                    <div class="message-display" id="messageDisplay">
+                        <div class="placeholder">
+                            <i class="fas fa-envelope-open-text"></i>
+                            <h3>Your Perfect Message Will Appear Here</h3>
+                            <p>Fill out the form and click "Generate Message" to create a personalized message for any occasion.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="message-actions" id="messageActions" style="display: none;">
+                        <button class="btn btn-outline" onclick="copyMessage()">
+                            <i class="fas fa-copy"></i>
+                            Copy Message
+                        </button>
+                        <button class="btn btn-outline" onclick="regenerateMessage()">
+                            <i class="fas fa-redo"></i>
+                            Regenerate
+                        </button>
+                        <button class="btn btn-primary" onclick="downloadMessage()">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Examples Section -->
+    <section id="examples" class="examples">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Message Examples</h2>
+                <p class="section-subtitle">See what kind of beautiful messages you can create</p>
+            </div>
+            
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-birthday-cake"></i>
+                        <h3>Birthday Message</h3>
+                    </div>
+                    <div class="example-content">
+                        <p>"Happy Birthday, Sarah! 🎉 Another year of amazing adventures, beautiful memories, and incredible growth. Your kindness and laughter light up every room you enter. Here's to celebrating you today and all the wonderful moments ahead!"</p>
+                    </div>
+                    <div class="example-details">
+                        <span class="detail-tag">Friend</span>
+                        <span class="detail-tag">Warm Tone</span>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-heart"></i>
+                        <h3>Anniversary Message</h3>
+                    </div>
+                    <div class="example-content">
+                        <p>"Happy 5th Anniversary, my love! Five years of shared dreams, endless laughter, and a love that grows stronger each day. Thank you for being my partner in all of life's adventures. Here's to many more years of happiness together! ❤️"</p>
+                    </div>
+                    <div class="example-details">
+                        <span class="detail-tag">Romantic</span>
+                        <span class="detail-tag">Heartfelt</span>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Graduation Message</h3>
+                    </div>
+                    <div class="example-content">
+                        <p>"Congratulations on your graduation, Alex! 🎓 Your hard work, dedication, and perseverance have paid off beautifully. This is just the beginning of an exciting journey ahead. The world is ready for all the amazing things you'll accomplish!"</p>
+                    </div>
+                    <div class="example-details">
+                        <span class="detail-tag">Family</span>
+                        <span class="detail-tag">Inspirational</span>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <i class="fas fa-briefcase"></i>
+                        <h3>Job Promotion</h3>
+                    </div>
+                    <div class="example-content">
+                        <p>"Congratulations on your well-deserved promotion, Michael! Your professionalism, innovative thinking, and leadership qualities make this achievement truly fitting. Wishing you continued success in your new role."</p>
+                    </div>
+                    <div class="example-details">
+                        <span class="detail-tag">Colleague</span>
+                        <span class="detail-tag">Professional</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">About Us</h2>
-                <p class="section-subtitle">Crafting digital excellence through innovation</p>
+                <h2 class="section-title">Why Choose Our Generator?</h2>
+                <p class="section-subtitle">Powered by advanced AI to create meaningful connections</p>
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <h3>We believe in the power of digital transformation</h3>
-                    <p>Our team combines creativity with technical expertise to deliver exceptional digital experiences. We're passionate about pushing boundaries and creating solutions that make a difference.</p>
+                    <h3>Creating meaningful messages has never been easier</h3>
+                    <p>Our AI-powered generator understands the nuances of human emotion and relationship dynamics to craft messages that truly resonate. Whether it's a birthday, anniversary, or any special occasion, we help you express exactly what you feel.</p>
                     <div class="stats">
                         <div class="stat">
-                            <div class="stat-number" data-target="150">0</div>
-                            <div class="stat-label">Projects Completed</div>
+                            <div class="stat-number" data-target="10000">0</div>
+                            <div class="stat-label">Messages Generated</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-number" data-target="98">0</div>
-                            <div class="stat-label">Client Satisfaction</div>
+                            <div class="stat-number" data-target="25">0</div>
+                            <div class="stat-label">Occasion Types</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-number" data-target="5">0</div>
-                            <div class="stat-label">Years Experience</div>
+                            <div class="stat-number" data-target="99">0</div>
+                            <div class="stat-label">User Satisfaction</div>
                         </div>
                     </div>
                 </div>
                 <div class="about-visual">
                     <div class="tech-stack">
-                        <div class="tech-item">HTML5</div>
-                        <div class="tech-item">CSS3</div>
-                        <div class="tech-item">JavaScript</div>
-                        <div class="tech-item">React</div>
-                        <div class="tech-item">Node.js</div>
-                        <div class="tech-item">Python</div>
+                        <div class="tech-item">AI-Powered</div>
+                        <div class="tech-item">Personalized</div>
+                        <div class="tech-item">25+ Occasions</div>
+                        <div class="tech-item">Multiple Tones</div>
+                        <div class="tech-item">Instant Results</div>
+                        <div class="tech-item">Free to Use</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Services</h2>
-                <p class="section-subtitle">Comprehensive digital solutions for modern businesses</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Web Development</h3>
-                    <p>Custom websites and web applications built with modern technologies and best practices.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Mobile Apps</h3>
-                    <p>Native and cross-platform mobile applications that deliver exceptional user experiences.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3>UI/UX Design</h3>
-                    <p>Beautiful, intuitive interfaces designed to enhance user engagement and satisfaction.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Digital Strategy</h3>
-                    <p>Comprehensive digital strategies to help your business thrive in the digital landscape.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h2>Let's Create Something Amazing Together</h2>
-                    <p>Ready to transform your digital presence? Get in touch and let's discuss your next project.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>hello@digitalexperience.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+1 (555) 123-4567</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>San Francisco, CA</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-text">
-                    <p>&copy; 2024 Digital Experience Hub. All rights reserved.</p>
+                    <p>&copy; 2024 Occasion Message Generator. Made with ❤️ for meaningful connections.</p>
                 </div>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-linkedin"></i></a>
                     <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                    <a href="#"><i class="fab fa-heart"></i></a>
                 </div>
             </div>
         </div>

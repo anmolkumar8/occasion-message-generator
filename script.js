@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initNavbar();
     initAnimations();
-    initContactForm();
+    initMessageGenerator();
     initCounters();
     initParallaxEffects();
 });
@@ -81,27 +81,6 @@ function initSmoothScrolling() {
         });
     });
 
-    // Button scroll handlers
-    const exploreBtn = document.querySelector('.btn-primary');
-    const contactBtn = document.querySelector('.btn-outline');
-    
-    if (exploreBtn) {
-        exploreBtn.addEventListener('click', () => {
-            document.querySelector('#about').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        });
-    }
-    
-    if (contactBtn) {
-        contactBtn.addEventListener('click', () => {
-            document.querySelector('#contact').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        });
-    }
 }
 
 // Navbar Functionality
@@ -194,40 +173,18 @@ function initAnimations() {
     });
 }
 
-// Contact Form
-function initContactForm() {
-    const form = document.getElementById('contactForm');
+// Message Generator Functionality
+function initMessageGenerator() {
+    const occasionSelect = document.getElementById('occasion');
+    const customOccasionGroup = document.getElementById('customOccasionGroup');
     
-    if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Get form data
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // Simple validation
-            if (name && email && message) {
-                // Show success message
-                showNotification('Message sent successfully! We\'ll get back to you soon.', 'success');
-                
-                // Reset form
-                form.reset();
-                
-                // Add some visual feedback
-                const submitBtn = form.querySelector('.btn');
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Sent!';
-                submitBtn.style.background = 'linear-gradient(45deg, #00d4aa, #00d4aa)';
-                
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #feca57)';
-                }, 3000);
-                
+    // Show/hide custom occasion input
+    if (occasionSelect) {
+        occasionSelect.addEventListener('change', function() {
+            if (this.value === 'custom') {
+                customOccasionGroup.style.display = 'block';
             } else {
-                showNotification('Please fill in all fields.', 'error');
+                customOccasionGroup.style.display = 'none';
             }
         });
     }
@@ -353,6 +310,337 @@ window.addEventListener('resize', debounce(() => {
     console.log('Window resized');
 }, 250));
 
+// Navigation Helper Functions
+function scrollToGenerator() {
+    document.querySelector('#generator').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+}
+
+function scrollToExamples() {
+    document.querySelector('#examples').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+}
+
+// Message Generation Function
+function generateMessage() {
+    const occasion = document.getElementById('occasion').value;
+    const customOccasion = document.getElementById('customOccasion').value;
+    const recipientName = document.getElementById('recipientName').value;
+    const relationship = document.getElementById('relationship').value;
+    const tone = document.getElementById('tone').value;
+    const additionalDetails = document.getElementById('additionalDetails').value;
+    
+    // Validation
+    if (!occasion) {
+        showNotification('Please select an occasion.', 'error');
+        return;
+    }
+    
+    if (occasion === 'custom' && !customOccasion.trim()) {
+        showNotification('Please describe your custom occasion.', 'error');
+        return;
+    }
+    
+    if (!recipientName.trim()) {
+        showNotification('Please enter the recipient\'s name.', 'error');
+        return;
+    }
+    
+    if (!relationship) {
+        showNotification('Please select your relationship.', 'error');
+        return;
+    }
+    
+    // Show loading state
+    showLoading();
+    
+    // Simulate AI processing delay
+    setTimeout(() => {
+        const message = generatePersonalizedMessage({
+            occasion: occasion === 'custom' ? customOccasion : occasion,
+            recipientName,
+            relationship,
+            tone,
+            additionalDetails
+        });
+        
+        displayGeneratedMessage(message);
+    }, 2000);
+}
+
+// Generate personalized message based on inputs
+function generatePersonalizedMessage(data) {
+    const templates = getMessageTemplates();
+    const occasionKey = data.occasion === 'custom' ? 'custom' : data.occasion;
+    
+    let template = templates[occasionKey] || templates.custom;
+    if (Array.isArray(template)) {
+        template = template[Math.floor(Math.random() * template.length)];
+    }
+    
+    // Customize message based on relationship and tone
+    let message = template
+        .replace('{name}', data.recipientName)
+        .replace('{occasion}', data.occasion);
+    
+    // Adjust tone
+    message = adjustMessageTone(message, data.tone, data.relationship);
+    
+    // Add additional details if provided
+    if (data.additionalDetails.trim()) {
+        message += ` ${data.additionalDetails.trim()}`;
+    }
+    
+    return message;
+}
+
+// Message templates for different occasions
+function getMessageTemplates() {
+    return {
+        birthday: [
+            "Happy Birthday, {name}! 🎉 Wishing you a year filled with happiness, success, and all the things that bring you joy. May this special day be just the beginning of another wonderful year ahead!",
+            "Happy Birthday, {name}! 🎂 Another year of amazing memories, growth, and adventures. Your presence brings so much light into the world. Hope your special day is as wonderful as you are!",
+            "Wishing you the happiest of birthdays, {name}! 🎈 May this new year of life bring you endless opportunities, beautiful moments, and all the happiness your heart can hold."
+        ],
+        anniversary: [
+            "Happy Anniversary, {name}! ❤️ Celebrating another year of love, laughter, and beautiful memories together. Here's to many more years of happiness and adventures ahead!",
+            "Congratulations on your anniversary, {name}! 💕 Your love story continues to inspire everyone around you. Wishing you both continued happiness and love.",
+            "Happy Anniversary, {name}! 🥂 Another year of partnership, growth, and shared dreams. May your bond continue to grow stronger with each passing year."
+        ],
+        wedding: [
+            "Congratulations on your wedding day, {name}! 💒 Wishing you both a lifetime of love, happiness, and beautiful memories together. May your marriage be everything you've dreamed of and more!",
+            "Best wishes on your special day, {name}! 👰 May your marriage be filled with endless love, joy, and wonderful adventures together.",
+            "Congratulations, {name}! 💍 Wishing you both a beautiful wedding day and a marriage filled with love, laughter, and happiness."
+        ],
+        graduation: [
+            "Congratulations on your graduation, {name}! 🎓 Your hard work, dedication, and perseverance have paid off beautifully. This is just the beginning of an exciting journey ahead!",
+            "Way to go, {name}! 📚 Your graduation is a testament to your commitment and determination. The future holds so many amazing possibilities for you!",
+            "Congratulations, {name}! 🎉 You've achieved something truly special. Your education will open doors to incredible opportunities ahead."
+        ],
+        promotion: [
+            "Congratulations on your promotion, {name}! 🎉 Your hard work, dedication, and leadership qualities have truly paid off. Well deserved success!",
+            "Amazing news about your promotion, {name}! 💼 Your professionalism and commitment have been recognized. Wishing you continued success!",
+            "Congratulations, {name}! 🚀 Your promotion is well-deserved recognition of your talents and efforts. Excited to see what you achieve next!"
+        ],
+        newjob: [
+            "Congratulations on your new job, {name}! 🎉 This exciting opportunity is perfect for someone with your skills and passion. Wishing you great success!",
+            "Best wishes on your new position, {name}! 💼 Your new workplace is lucky to have someone so talented and dedicated. Go shine!",
+            "Congratulations, {name}! 🌟 Your new job is the perfect next step in your career journey. Excited to hear about all your future achievements!"
+        ],
+        retirement: [
+            "Happy Retirement, {name}! 🎉 After years of dedication and hard work, you've earned this time to relax and enjoy life. Wishing you a fulfilling retirement!",
+            "Congratulations on your retirement, {name}! 🌅 May this new chapter bring you joy, relaxation, and time for all the things you love most.",
+            "Best wishes for your retirement, {name}! ⛳ You've worked so hard - now it's time to enjoy the fruits of your labor. Happy retirement!"
+        ],
+        baby: [
+            "Congratulations on your new baby, {name}! 👶 What a wonderful blessing! Wishing you and your little one health, happiness, and lots of precious moments together.",
+            "Welcome to parenthood, {name}! 🍼 Your new bundle of joy is so lucky to have you. Wishing your growing family all the love and happiness in the world.",
+            "Congratulations, {name}! 🎈 Your new arrival is absolutely precious. May this journey of parenthood bring you endless joy and beautiful memories."
+        ],
+        valentines: [
+            "Happy Valentine's Day, {name}! 💝 You bring so much love and happiness into my life. Thank you for being such an incredible part of my world.",
+            "To my amazing {name}, Happy Valentine's Day! ❤️ Every day with you feels like a celebration of love. You mean everything to me.",
+            "Happy Valentine's Day, {name}! 🌹 You make every day brighter with your love and kindness. Feeling grateful for you today and always."
+        ],
+        mothers: [
+            "Happy Mother's Day, {name}! 🌸 Thank you for all the love, wisdom, and care you've given. You're an amazing mother and an inspiration to us all.",
+            "Wishing you a beautiful Mother's Day, {name}! 💐 Your love and dedication as a mother shine through in everything you do. You deserve all the appreciation today!",
+            "Happy Mother's Day, {name}! 👑 You're not just a wonderful mother, but an incredible person who deserves to be celebrated today and every day."
+        ],
+        fathers: [
+            "Happy Father's Day, {name}! 👨‍👧‍👦 Thank you for being such an amazing dad and role model. Your love and guidance mean the world to our family.",
+            "Wishing you a fantastic Father's Day, {name}! 🎣 Your wisdom, strength, and caring nature make you an exceptional father. Enjoy your special day!",
+            "Happy Father's Day, {name}! 🏆 You're an incredible dad who deserves recognition for all the love and support you provide. Hope your day is wonderful!"
+        ],
+        christmas: [
+            "Merry Christmas, {name}! 🎄 Wishing you and your loved ones a holiday season filled with joy, love, and wonderful memories. Hope Santa brings you everything you wish for!",
+            "Happy Holidays, {name}! ❄️ May this Christmas bring you peace, happiness, and quality time with those you cherish most. Merry Christmas!",
+            "Merry Christmas, {name}! 🎅 Sending warm wishes for a magical holiday season filled with love, laughter, and all your favorite traditions."
+        ],
+        newyear: [
+            "Happy New Year, {name}! 🎊 Wishing you 365 days of happiness, success, and new adventures. May this year bring you everything you're hoping for!",
+            "Cheers to the New Year, {name}! 🥳 Here's to fresh starts, new opportunities, and making more amazing memories together in the year ahead!",
+            "Happy New Year, {name}! ✨ May this year be filled with growth, joy, and all the success you deserve. Excited to see what the future holds for you!"
+        ],
+        condolence: [
+            "My deepest condolences, {name}. Please know that you're in my thoughts and prayers during this difficult time. Sending you love and strength.",
+            "I'm so sorry for your loss, {name}. Wishing you peace and comfort as you navigate through this challenging time. You're not alone.",
+            "Sending heartfelt sympathy, {name}. May loving memories bring you comfort and peace during this difficult time. Thinking of you."
+        ],
+        getsoon: [
+            "Get well soon, {name}! 🌻 Sending you healing thoughts and positive energy. Hope you're feeling better very soon and back to your wonderful self!",
+            "Wishing you a speedy recovery, {name}! 💪 Take care of yourself and know that you're in my thoughts. Hope you feel better soon!",
+            "Sending healing wishes your way, {name}! 🌈 Rest up and take care of yourself. Looking forward to seeing you healthy and happy again soon!"
+        ],
+        congratulations: [
+            "Congratulations, {name}! 🎉 You've achieved something truly wonderful and you should be so proud. Well done on this amazing accomplishment!",
+            "Way to go, {name}! 🌟 Your success is well-deserved and inspiring. Congratulations on this fantastic achievement!",
+            "Congratulations, {name}! 🎊 This is such exciting news! Your hard work and dedication have truly paid off."
+        ],
+        thankyou: [
+            "Thank you so much, {name}! 🙏 Your kindness and support mean more to me than words can express. I'm truly grateful for everything you do.",
+            "I can't thank you enough, {name}! 💚 Your generosity and thoughtfulness have made such a difference. You're absolutely wonderful!",
+            "Heartfelt thanks, {name}! ✨ Your help and support have been incredible. I feel so lucky to have someone like you in my life."
+        ],
+        apology: [
+            "I'm truly sorry, {name}. I realize my actions may have hurt you, and I deeply regret that. Please know that I value our relationship and hope we can move forward.",
+            "My sincere apologies, {name}. I take full responsibility for my mistake and I'm committed to making things right. Thank you for your patience and understanding.",
+            "I owe you an apology, {name}. I'm sorry for any pain or disappointment I may have caused. Your forgiveness would mean everything to me."
+        ],
+        custom: "Wishing you all the best on your special {occasion}, {name}! 🎉 May this moment bring you joy, happiness, and wonderful memories to cherish."
+    };
+}
+
+// Adjust message tone based on relationship and tone preference
+function adjustMessageTone(message, tone, relationship) {
+    const adjustments = {
+        formal: {
+            prefix: "",
+            suffix: " Best regards.",
+            replacements: {
+                "!": ".",
+                "amazing": "excellent",
+                "awesome": "outstanding",
+                "great": "wonderful"
+            }
+        },
+        funny: {
+            prefix: "",
+            suffix: " Hope you don't mind my attempt at humor! 😄",
+            emojis: [" 😂", " 🎉", " 🎈", " 🥳"]
+        },
+        heartfelt: {
+            prefix: "From the bottom of my heart, ",
+            suffix: " You mean so much to me.",
+            replacements: {
+                "great": "truly meaningful",
+                "nice": "deeply touching",
+                "good": "heartwarming"
+            }
+        },
+        casual: {
+            prefix: "Hey there! ",
+            suffix: " Catch you later! 😊",
+            replacements: {
+                "wonderful": "awesome",
+                "excellent": "great",
+                "magnificent": "cool"
+            }
+        },
+        inspirational: {
+            prefix: "",
+            suffix: " Remember, the sky's the limit! ⭐",
+            replacements: {
+                "good luck": "believe in yourself",
+                "hope": "know",
+                "maybe": "certainly"
+            }
+        }
+    };
+    
+    const adjustment = adjustments[tone] || {};
+    let adjustedMessage = message;
+    
+    // Apply replacements
+    if (adjustment.replacements) {
+        Object.entries(adjustment.replacements).forEach(([from, to]) => {
+            adjustedMessage = adjustedMessage.replace(new RegExp(from, 'gi'), to);
+        });
+    }
+    
+    // Add prefix and suffix
+    if (adjustment.prefix) adjustedMessage = adjustment.prefix + adjustedMessage;
+    if (adjustment.suffix) adjustedMessage = adjustedMessage + adjustment.suffix;
+    
+    // Add random emoji for funny tone
+    if (tone === 'funny' && adjustment.emojis) {
+        const randomEmoji = adjustment.emojis[Math.floor(Math.random() * adjustment.emojis.length)];
+        adjustedMessage = adjustedMessage + randomEmoji;
+    }
+    
+    return adjustedMessage;
+}
+
+// Show loading state
+function showLoading() {
+    const messageDisplay = document.getElementById('messageDisplay');
+    messageDisplay.innerHTML = `
+        <div class="loading">
+            <i class="fas fa-magic"></i>
+            <div>
+                <h3>Crafting your perfect message...</h3>
+                <div class="loading-dots">
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                    <div class="loading-dot"></div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Display generated message
+function displayGeneratedMessage(message) {
+    const messageDisplay = document.getElementById('messageDisplay');
+    const messageActions = document.getElementById('messageActions');
+    
+    messageDisplay.innerHTML = `<div class="generated-message">${message}</div>`;
+    messageActions.style.display = 'flex';
+    
+    // Store message for later use
+    window.currentMessage = message;
+    
+    // Add animation
+    messageDisplay.style.opacity = '0';
+    setTimeout(() => {
+        messageDisplay.style.opacity = '1';
+        messageDisplay.style.transition = 'opacity 0.5s ease';
+    }, 100);
+}
+
+// Copy message to clipboard
+function copyMessage() {
+    if (window.currentMessage) {
+        navigator.clipboard.writeText(window.currentMessage).then(() => {
+            showNotification('Message copied to clipboard! 📋', 'success');
+        }).catch(() => {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = window.currentMessage;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showNotification('Message copied to clipboard! 📋', 'success');
+        });
+    }
+}
+
+// Regenerate message with same inputs
+function regenerateMessage() {
+    generateMessage();
+}
+
+// Download message as text file
+function downloadMessage() {
+    if (window.currentMessage) {
+        const blob = new Blob([window.currentMessage], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'occasion-message.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        showNotification('Message downloaded! 📄', 'success');
+    }
+}
+
 // Additional Interactive Features
 document.addEventListener('DOMContentLoaded', function() {
     // Add ripple effect to buttons
@@ -360,31 +648,33 @@ document.addEventListener('DOMContentLoaded', function() {
     
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.cssText = `
-                position: absolute;
-                width: ${size}px;
-                height: ${size}px;
-                left: ${x}px;
-                top: ${y}px;
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 50%;
-                pointer-events: none;
-                animation: ripple 0.6s ease-out;
-            `;
-            
-            this.style.position = 'relative';
-            this.style.overflow = 'hidden';
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
+            if (!this.classList.contains('btn-generate')) { // Skip for generate button
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: ripple 0.6s ease-out;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            }
         });
     });
     

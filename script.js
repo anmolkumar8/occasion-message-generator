@@ -197,6 +197,34 @@ function initMessageGenerator() {
 function initOptionButtons() {
     console.log('Initializing option buttons...');
     
+    // Handle occasion options
+    const occasionOptions = document.querySelectorAll('#occasionOptions .option-btn');
+    const occasionSelect = document.getElementById('occasion');
+    const customOccasionGroup = document.getElementById('customOccasionGroup');
+    
+    console.log('Found', occasionOptions.length, 'occasion options');
+    
+    occasionOptions.forEach(btn => {
+        btn.addEventListener('click', function() {
+            console.log('Occasion option clicked:', this.dataset.value);
+            // Remove selected class from all buttons in this group
+            occasionOptions.forEach(b => b.classList.remove('selected'));
+            // Add selected class to clicked button
+            this.classList.add('selected');
+            // Update hidden select value
+            if (occasionSelect) {
+                occasionSelect.value = this.dataset.value;
+                
+                // Show/hide custom occasion input
+                if (this.dataset.value === 'custom') {
+                    customOccasionGroup.style.display = 'block';
+                } else {
+                    customOccasionGroup.style.display = 'none';
+                }
+            }
+        });
+    });
+    
     // Handle relationship options
     const relationshipOptions = document.querySelectorAll('#relationshipOptions .option-btn');
     const relationshipSelect = document.getElementById('relationship');

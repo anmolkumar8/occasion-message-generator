@@ -592,10 +592,10 @@ select.form-input {
     opacity: 1 !important;
 }
 
-/* Enhanced section title visibility */
+/* Enhanced section title visibility - Pure White Color */
 .generator .section-title {
     color: #ffffff !important;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8) !important;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9) !important;
     background: none !important;
     background-image: none !important;
     -webkit-background-clip: initial !important;
@@ -606,6 +606,14 @@ select.form-input {
     margin-bottom: 1rem !important;
     position: relative !important;
     z-index: 10 !important;
+}
+
+/* Additional specificity for white color */
+.generator .section-header .section-title,
+#generator .section-header .section-title {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9) !important;
 }
 
 .btn-generate {

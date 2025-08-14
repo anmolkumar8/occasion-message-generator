@@ -490,27 +490,37 @@ select.form-input {
     padding-right: 3rem;
 }
 
-/* Custom Dropdown Styling - Force visibility */
+/* Enhanced dropdown styling for better visibility */
 select.form-input {
-    background-color: rgba(255, 255, 255, 0.2) !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
     color: #fff !important;
-    border: 2px solid rgba(255, 255, 255, 0.4) !important;
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
     font-weight: 600 !important;
+    appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 16px !important;
+    padding-right: 40px !important;
 }
 
-/* Dropdown options - Maximum visibility */
+/* Make dropdown options clearly visible */
 select.form-input option {
-    background-color: #1a202c !important;
+    background-color: #2d3748 !important;
     color: #ffffff !important;
-    padding: 12px 16px !important;
-    border: none !important;
-    font-weight: 500 !important;
+    padding: 8px 12px !important;
     font-family: 'Poppins', sans-serif !important;
     font-size: 14px !important;
-    line-height: 1.5 !important;
+    font-weight: 500 !important;
+    border: none !important;
 }
 
-/* Selected and hover states */
+/* Hover and selected states */
+select.form-input option:hover {
+    background-color: #4a5568 !important;
+    color: #feca57 !important;
+}
+
 select.form-input option:checked,
 select.form-input option:selected {
     background-color: #feca57 !important;
@@ -518,25 +528,10 @@ select.form-input option:selected {
     font-weight: 600 !important;
 }
 
-select.form-input option:hover {
-    background-color: #2d3748 !important;
-    color: #feca57 !important;
-}
-
-/* Focus state for select */
+/* Focus state */
 select.form-input:focus {
-    box-shadow: 0 0 0 3px rgba(254, 202, 87, 0.4) !important;
     border-color: #feca57 !important;
-}
-
-/* Enhanced dropdown arrow */
-select.form-input {
-    appearance: none !important;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e") !important;
-    background-repeat: no-repeat !important;
-    background-position: right 12px center !important;
-    background-size: 16px !important;
-    padding-right: 40px !important;
+    box-shadow: 0 0 15px rgba(254, 202, 87, 0.3) !important;
 }
 
 .btn-generate {

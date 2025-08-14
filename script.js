@@ -188,6 +188,42 @@ function initMessageGenerator() {
             }
         });
     }
+    
+    // Initialize option button functionality
+    initOptionButtons();
+}
+
+// Option Button Functionality
+function initOptionButtons() {
+    // Handle relationship options
+    const relationshipOptions = document.querySelectorAll('#relationshipOptions .option-btn');
+    const relationshipSelect = document.getElementById('relationship');
+    
+    relationshipOptions.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remove selected class from all buttons in this group
+            relationshipOptions.forEach(b => b.classList.remove('selected'));
+            // Add selected class to clicked button
+            this.classList.add('selected');
+            // Update hidden select value
+            relationshipSelect.value = this.dataset.value;
+        });
+    });
+    
+    // Handle tone options
+    const toneOptions = document.querySelectorAll('#toneOptions .option-btn');
+    const toneSelect = document.getElementById('tone');
+    
+    toneOptions.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remove selected class from all buttons in this group
+            toneOptions.forEach(b => b.classList.remove('selected'));
+            // Add selected class to clicked button
+            this.classList.add('selected');
+            // Update hidden select value
+            toneSelect.value = this.dataset.value;
+        });
+    });
 }
 
 // Notification System

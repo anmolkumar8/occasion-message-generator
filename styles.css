@@ -321,20 +321,25 @@ section {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: #fff !important;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+    color: #ffffff !important;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8) !important;
     background: none !important;
-    -webkit-text-fill-color: #fff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
 }
 
-/* Force specific section titles to be white */
+/* Force specific section titles to be white and visible */
 #generator .section-title,
 #examples .section-title,
 #about .section-title {
-    color: #fff !important;
+    color: #ffffff !important;
     background: none !important;
-    -webkit-text-fill-color: #fff !important;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+    -webkit-text-fill-color: #ffffff !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8) !important;
+    opacity: 1 !important;
 }
 
 .section-subtitle {
@@ -490,48 +495,51 @@ select.form-input {
     padding-right: 3rem;
 }
 
-/* Enhanced dropdown styling for better visibility */
-select.form-input {
-    background-color: rgba(255, 255, 255, 0.25) !important;
-    color: #fff !important;
-    border: 2px solid rgba(255, 255, 255, 0.5) !important;
-    font-weight: 600 !important;
-    appearance: none !important;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e") !important;
-    background-repeat: no-repeat !important;
-    background-position: right 12px center !important;
-    background-size: 16px !important;
-    padding-right: 40px !important;
+/* Custom Option Buttons - Always Visible */
+.option-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
 }
 
-/* Make dropdown options clearly visible */
-select.form-input option {
-    background-color: #2d3748 !important;
-    color: #ffffff !important;
-    padding: 8px 12px !important;
-    font-family: 'Poppins', sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    border: none !important;
+.option-btn {
+    padding: 0.8rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    user-select: none;
 }
 
-/* Hover and selected states */
-select.form-input option:hover {
-    background-color: #4a5568 !important;
-    color: #feca57 !important;
+.option-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
 }
 
-select.form-input option:checked,
-select.form-input option:selected {
-    background-color: #feca57 !important;
-    color: #1a202c !important;
-    font-weight: 600 !important;
+.option-btn.selected {
+    background: linear-gradient(45deg, #ff6b6b, #feca57);
+    border-color: #feca57;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
 }
 
-/* Focus state */
-select.form-input:focus {
-    border-color: #feca57 !important;
-    box-shadow: 0 0 15px rgba(254, 202, 87, 0.3) !important;
+/* Hide original select elements */
+.form-input.hidden-select {
+    display: none;
+}
+
+/* Tone options - smaller grid for better layout */
+.tone-options {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 }
 
 .btn-generate {

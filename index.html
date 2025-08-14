@@ -110,7 +110,23 @@
                     
                     <div class="form-group">
                         <label for="relationship">Your Relationship</label>
-                        <select id="relationship" class="form-input">
+                        <div class="option-group" id="relationshipOptions">
+                            <div class="option-btn" data-value="friend">Friend</div>
+                            <div class="option-btn" data-value="family">Family Member</div>
+                            <div class="option-btn" data-value="colleague">Colleague</div>
+                            <div class="option-btn" data-value="boss">Boss</div>
+                            <div class="option-btn" data-value="employee">Employee</div>
+                            <div class="option-btn" data-value="romantic">Romantic Partner</div>
+                            <div class="option-btn" data-value="parent">Parent</div>
+                            <div class="option-btn" data-value="child">Child</div>
+                            <div class="option-btn" data-value="sibling">Sibling</div>
+                            <div class="option-btn" data-value="grandparent">Grandparent</div>
+                            <div class="option-btn" data-value="teacher">Teacher</div>
+                            <div class="option-btn" data-value="student">Student</div>
+                            <div class="option-btn" data-value="neighbor">Neighbor</div>
+                            <div class="option-btn" data-value="acquaintance">Acquaintance</div>
+                        </div>
+                        <select id="relationship" class="form-input hidden-select">
                             <option value="">Select relationship...</option>
                             <option value="friend">Friend</option>
                             <option value="family">Family Member</option>
@@ -131,7 +147,15 @@
                     
                     <div class="form-group">
                         <label for="tone">Message Tone</label>
-                        <select id="tone" class="form-input">
+                        <div class="option-group tone-options" id="toneOptions">
+                            <div class="option-btn selected" data-value="warm">Warm & Friendly</div>
+                            <div class="option-btn" data-value="formal">Formal & Professional</div>
+                            <div class="option-btn" data-value="funny">Funny & Humorous</div>
+                            <div class="option-btn" data-value="heartfelt">Heartfelt & Emotional</div>
+                            <div class="option-btn" data-value="casual">Casual & Relaxed</div>
+                            <div class="option-btn" data-value="inspirational">Inspirational & Motivating</div>
+                        </div>
+                        <select id="tone" class="form-input hidden-select">
                             <option value="warm">Warm & Friendly</option>
                             <option value="formal">Formal & Professional</option>
                             <option value="funny">Funny & Humorous</option>
